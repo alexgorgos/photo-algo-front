@@ -1,0 +1,30 @@
+{
+  "name": "alexandru-gorgos-photography",
+  "version": "1.0.0",
+  "private": true,
+  "description": "alexandru-gorgos-photography",
+  "author": "Alexandru Gorgos",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "v1",
+    "@mdx-js/react": "v1",
+    "gatsby": "^4.20.0",
+    "gatsby-plugin-google-analytics": "^4.20.0",
+    "gatsby-plugin-mdx": "^3.20.0",
+    "gatsby-plugin-react-helmet": "^5.20.0",
+    "gatsby-plugin-sitemap": "^5.20.0",
+    "gatsby-source-filesystem": "^4.20.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-helmet": "^6.1.0"
+  }
+}
