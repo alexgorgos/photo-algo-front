@@ -12,7 +12,7 @@ const strapiConfig = {
 module.exports = {
   siteMetadata: {
     title: `new`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://photo.alexandrugorgos.com`,
   },
   plugins: [
     {
@@ -42,5 +42,23 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-transformer-remark`,
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://photo.alexandrugorgos.com",
+        sitemap: "https://photo.alexandrugorgos.com/sitemap.xml",
+        env: {
+          dev: {
+            policy: [{ userAgent: "*", disallow: "/" }],
+          },
+          stage: {
+            policy: [{ userAgent: "*", disallow: "/" }],
+          },
+          prod: {
+            policy: [{ userAgent: "*", allow: "/" }],
+          },
+        },
+      },
+    },
   ],
 };
