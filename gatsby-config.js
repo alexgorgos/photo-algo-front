@@ -1,6 +1,4 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
+require("dotenv").config();
 
 const strapiConfig = {
   apiURL: process.env.STRAPI_API_URL,
