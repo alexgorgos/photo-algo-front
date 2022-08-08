@@ -1,5 +1,12 @@
 require("dotenv").config();
 
+const {
+  NODE_ENV,
+  URL: NETLIFY_SITE_URL = "https://photo.alexandrugorgos.com",
+  DEPLOY_PRIME_URL: NETLIFY_DEPLOY_URL = NETLIFY_SITE_URL,
+  CONTEXT: NETLIFY_ENV = NODE_ENV,
+} = process.env;
+
 const strapiConfig = {
   apiURL: process.env.STRAPI_API_URL,
   accessToken: process.env.STRAPI_TOKEN,
@@ -46,13 +53,17 @@ module.exports = {
       options: {
         host: "https://photo.alexandrugorgos.com",
         sitemap: "https://photo.alexandrugorgos.com/sitemap.xml",
-        resolveEnv: () => process.env.NODE_ENV,
+        resolveEnv: () => NETLIFY_ENV,
         env: {
-          development: {
-            policy: [{ userAgent: "*", disallow: "/" }],
-          },
-          staging: {
+          "deploy-preview": {
             policy: [{ userAgent: "*", disallow: ["/"] }],
+            sitemap: null,
+            host: null,
+          },
+          "branch-deploy": {
+            policy: [{ userAgent: "*", disallow: ["/"] }],
+            sitemap: null,
+            host: null,
           },
           production: {
             policy: [{ userAgent: "*", allow: "/" }],
