@@ -1,0 +1,4 @@
+[content.dev]
+    environment = {
+        NODE_ENV = "dev"
+    }
