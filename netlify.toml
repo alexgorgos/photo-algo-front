@@ -1,4 +1,3 @@
-[content.dev]
-    environment = {
-        NODE_ENV = "dev"
-    }
+[context.dev]
+  base = "dev"
+  environment = { NODE_ENV = "dev" }
