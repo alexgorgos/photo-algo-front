@@ -46,15 +46,16 @@ module.exports = {
       options: {
         host: "https://photo.alexandrugorgos.com",
         sitemap: "https://photo.alexandrugorgos.com/sitemap.xml",
+        resolveEnv: () => process.env.NODE_ENV,
         env: {
-          dev: {
+          development: {
             policy: [{ userAgent: "*", disallow: "/" }],
           },
-          stage: {
-            policy: [{ userAgent: "*", disallow: "/" }],
+          staging: {
+            policy: [{ userAgent: "*", disallow: ["/"] }],
           },
-          prod: {
-            policy: [{ userAgent: "*", disallow: "/" }],
+          production: {
+            policy: [{ userAgent: "*", allow: "/" }],
           },
         },
       },
