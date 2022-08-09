@@ -8,9 +8,9 @@
     "gatsby"
   ],
   "scripts": {
-    "develop": "cross-env NODE_ENV=$NODE_ENV gatsby develop",
+    "develop": "gatsby develop",
     "start": "gatsby develop",
-    "build": "cross-env NODE_ENV=$NODE_ENV gatsby build",
+    "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.10.0",
     "@mdx-js/mdx": "v1",
     "@mdx-js/react": "v1",
+    "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
@@ -37,8 +38,7 @@
     "gatsby-theme-material-ui": "^5.2.0",
     "gatsby-transformer-remark": "^5.20.0",
     "gatsby-transformer-sharp": "^4.20.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
