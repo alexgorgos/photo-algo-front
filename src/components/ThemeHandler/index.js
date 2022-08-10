@@ -26,8 +26,8 @@ export const ThemeHandler = ({ children }) => {
   const [colorMode, setColorMode] = React.useState(getInitialColorMode());
 
   const changeColorMode = (newMode) => {
-    setColorMode(newMode);
     localStorage.setItem("color-mode", newMode);
+    setColorMode(newMode);
   };
 
   return (

@@ -8,10 +8,6 @@ import { ColorModeContext } from "../ThemeHandler";
 export const ColorModeButton = () => {
   const { colorMode, changeColorMode } = React.useContext(ColorModeContext);
 
-  if (!colorMode) {
-    return null;
-  }
-
   return (
     <Box>
       <IconButton

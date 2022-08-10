@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext } from "../ThemeHandler";
 
 export const Layout = ({ children }) => {
-  const { colorMode, changeColorMode } = React.useContext(ColorModeContext);
+  const { colorMode } = React.useContext(ColorModeContext);
 
   const theme = React.useMemo(
     () =>
@@ -20,6 +20,10 @@ export const Layout = ({ children }) => {
       }),
     [colorMode]
   );
+
+  if (!colorMode) {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={responsiveFontSizes(theme)}>
