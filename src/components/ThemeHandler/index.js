@@ -1,18 +1,20 @@
 import * as React from "react";
 
 const getInitialColorMode = () => {
-  const localColorMode = window.localStorage.getItem("color-mode");
-  const hasLocalColorMode = typeof localColorMode === "string";
+  if (typeof window !== "undefined") {
+    const localColorMode = window.localStorage.getItem("color-mode");
+    const hasLocalColorMode = typeof localColorMode === "string";
 
-  if (hasLocalColorMode) {
-    return localColorMode;
-  }
+    if (hasLocalColorMode) {
+      return localColorMode;
+    }
 
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const hasMediaQuery = typeof mediaQuery.matches === "boolean";
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const hasMediaQuery = typeof mediaQuery.matches === "boolean";
 
-  if (hasMediaQuery) {
-    return mediaQuery.matches ? "dark" : "light";
+    if (hasMediaQuery) {
+      return mediaQuery.matches ? "dark" : "light";
+    }
   }
 
   return "light";
