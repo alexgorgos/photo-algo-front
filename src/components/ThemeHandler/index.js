@@ -17,7 +17,7 @@ const getInitialColorMode = () => {
     }
   }
 
-  return "light";
+  return null;
 };
 
 export const ColorModeContext = React.createContext();
