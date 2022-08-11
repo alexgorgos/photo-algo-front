@@ -30,6 +30,23 @@ module.exports = {
       resolve: `gatsby-source-strapi`,
       options: strapiConfig,
     },
+    {
+      resolve: "gatsby-source-strapi-plugin-navigation-v2",
+      options: {
+        apiURL: strapiConfig.apiURL,
+        navigationIdsOrSlugs: ["api/navigation/render/main-navigation"],
+        type: "tree", // optional
+        token: strapiConfig.accessToken, // optional
+      },
+    },
+    {
+      resolve: `gatsby-source-menus-strapi-plugin`,
+      options: {
+        apiURL: strapiConfig.apiURL,
+        menusEndpoint: `menus`,
+        nested: true, // default to false
+      },
+    },
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-mdx",

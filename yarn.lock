@@ -3528,6 +3528,14 @@ axios@^0.26.1:
   dependencies:
     follow-redirects "^1.14.8"
 
+axios@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+  dependencies:
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -6051,7 +6059,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.6.tgz#022e9218c637f9f3fc9c35ab9c9193f05add60b2"
   integrity sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==
 
-follow-redirects@^1.14.0, follow-redirects@^1.14.4, follow-redirects@^1.14.8:
+follow-redirects@^1.14.0, follow-redirects@^1.14.4, follow-redirects@^1.14.8, follow-redirects@^1.14.9:
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
@@ -6075,7 +6083,7 @@ fork-ts-checker-webpack-plugin@^6.5.0:
     semver "^7.3.2"
     tapable "^1.0.0"
 
-form-data@4.0.0:
+form-data@4.0.0, form-data@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
   integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
@@ -6590,6 +6598,20 @@ gatsby-source-filesystem@^4.20.0:
     progress "^2.0.3"
     valid-url "^1.0.9"
     xstate "^4.26.1"
+
+gatsby-source-menus-strapi-plugin@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gatsby-source-menus-strapi-plugin/-/gatsby-source-menus-strapi-plugin-1.0.1.tgz#1320e6e27a86ac7ce279e29f1e5148244bc8b9bd"
+  integrity sha512-mlNis3fvacKPZyXM+JzjtuyQuyyqRU7/QkQGBmTSFG0GAZFvlVfS/5sYn8h2p1k0/7faHX72iObYeOcJGwLNZQ==
+  dependencies:
+    axios "^0.27.2"
+
+gatsby-source-strapi-plugin-navigation-v2@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gatsby-source-strapi-plugin-navigation-v2/-/gatsby-source-strapi-plugin-navigation-v2-1.0.2.tgz#390684c66518a27ab6c6e91c5622ccedc7699243"
+  integrity sha512-4eiSyfHhNDKA3nz4241thKACyue26bESikuOINoq7R/RBH37Wp1l0RXrJhNMKW7D45ynbBI05x4LcEA9YP57FQ==
+  dependencies:
+    node-fetch "^2.6.7"
 
 gatsby-source-strapi@^2.0.0:
   version "2.0.0"
