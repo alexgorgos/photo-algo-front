@@ -7,6 +7,7 @@ import {
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext } from "../ThemeHandler";
+import { Navigation } from "../Navigation";
 
 export const Layout = ({ children }) => {
   const { colorMode } = React.useContext(ColorModeContext);
@@ -29,6 +30,7 @@ export const Layout = ({ children }) => {
     <ThemeProvider theme={responsiveFontSizes(theme)}>
       <CssBaseline />
       <ColorModeButton />
+      <Navigation navName={"main"} />
       {children}
     </ThemeProvider>
   );
