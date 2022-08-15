@@ -7,25 +7,25 @@ import "./styles.css";
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
-import { Keyboard, Mousewheel } from "swiper";
+import SwiperCore, { Keyboard, Mousewheel, Virtual } from "swiper";
 
 export const HomeGallery = ({ gallery }) => {
-  console.log(gallery);
   return (
     <Swiper
       centeredSlides={true}
       slidesPerView={"auto"}
       spaceBetween={30}
-      modules={[Keyboard, Mousewheel]}
+      modules={[Keyboard, Mousewheel, Virtual]}
       initialSlide={0}
       mousewheel
       keyboard
       grabCursor
+      virtual
     >
       {gallery.featuredImages.map((image, i) => {
         const gimage = getImage(image.localFile);
         return (
-          <SwiperSlide key={i}>
+          <SwiperSlide key={i} virtualIndex={i}>
             <GatsbyImage
               image={gimage}
               alt={image.alternativeText}
