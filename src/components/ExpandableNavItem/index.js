@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { RecursiveComp } from "../Navigation";
@@ -24,7 +18,7 @@ export const ExpandableNavItem = ({ title, childrens }) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List>
+        <List disablePadding>
           {childrens.map((child, index) => {
             return (
               <RecursiveComp

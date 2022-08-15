@@ -50,7 +50,7 @@ export const Navigation = ({ navName }) => {
   });
 
   return (
-    <List>
+    <List component="nav">
       {menus[navName].map((item, index) => {
         return (
           <RecursiveComp
