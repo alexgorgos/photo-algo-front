@@ -17,6 +17,7 @@ export const HomeGallery = ({ gallery }) => {
       slidesPerView={"auto"}
       spaceBetween={30}
       modules={[Keyboard, Mousewheel]}
+      initialSlide={0}
       mousewheel
       keyboard
       grabCursor
