@@ -11,6 +11,7 @@ import "./styles.css";
 export const HomeGallery = ({ gallery }) => {
   return (
     <Swiper
+      initialSlide={0}
       modules={[Keyboard, Mousewheel, Virtual]}
       centeredSlides={true}
       slidesPerView={"auto"}
