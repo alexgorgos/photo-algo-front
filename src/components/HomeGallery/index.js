@@ -1,36 +1,30 @@
 import * as React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Keyboard, Mousewheel, Virtual } from "swiper";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+
 import "swiper/css";
 import "swiper/css/navigation";
 
 import "./styles.css";
 
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-
-import SwiperCore, { Keyboard, Mousewheel, Virtual } from "swiper";
-
 export const HomeGallery = ({ gallery }) => {
   return (
     <Swiper
+      modules={[Keyboard, Mousewheel, Virtual]}
       centeredSlides={true}
       slidesPerView={"auto"}
       spaceBetween={30}
-      modules={[Keyboard, Mousewheel, Virtual]}
-      initialSlide={0}
       mousewheel
       keyboard
+      virtual={typeof window !== "undefined" ? false : true}
       grabCursor
-      virtual
     >
       {gallery.featuredImages.map((image, i) => {
         const gimage = getImage(image.localFile);
         return (
           <SwiperSlide key={i} virtualIndex={i}>
-            <GatsbyImage
-              image={gimage}
-              alt={image.alternativeText}
-              className={"image"}
-            />
+            <GatsbyImage image={gimage} alt={image.alternativeText} />
           </SwiperSlide>
         );
       })}
