@@ -137,7 +137,7 @@ export const Layout = ({ children }) => {
           theme={theme}
           sx={{
             paddingY: { xs: "24px", md: "64px" },
-            height: "100vh",
+            height: "100%",
             width: "100vw",
           }}
         >
