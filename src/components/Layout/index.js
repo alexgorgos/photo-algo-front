@@ -67,7 +67,7 @@ export const Layout = ({ children }) => {
       <Box
         sx={{
           display: "flex",
-          height: "100vh",
+          height: "100%",
           position: "relative",
         }}
       >
@@ -134,8 +134,8 @@ export const Layout = ({ children }) => {
           theme={theme}
           sx={{
             paddingY: { xs: "24px", md: "64px" },
-            height: "100%",
-            width: "100%",
+            height: "100vh",
+            width: "100vw",
           }}
         >
           {children}

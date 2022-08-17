@@ -118,6 +118,8 @@ export const HomeGallery = ({ gallery }) => {
               <GatsbyImage
                 image={getImage(image.localFile)}
                 alt={image.alternativeText}
+                imgStyle={{ objectFit: "contain" }}
+                objectFit="contain"
               />
             </Box>
           );
