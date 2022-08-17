@@ -67,10 +67,7 @@ export const Layout = ({ children }) => {
       <Box
         sx={{
           display: "flex",
-          height: "100vh",
-          height: "-moz-available",
-          height: "-webkit-fill-available",
-          height: "fill-available",
+          height: "100%",
           position: "relative",
         }}
       >
@@ -138,7 +135,7 @@ export const Layout = ({ children }) => {
           sx={{
             paddingY: { xs: "24px", md: "64px" },
             height: "100%",
-            width: "100vw",
+            width: "100%",
           }}
         >
           {children}
