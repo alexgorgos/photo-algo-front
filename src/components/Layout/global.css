@@ -1,11 +1,18 @@
-html,
+html {
+  height: fill-available;
+  height: -webkit-fill-available;
+}
+
 body,
 #___gatsby,
-#___gatsby > div {
+#___gatsby > div,
+#___gatsby > div > div {
   height: 100vh;
   height: -moz-available;
   height: -webkit-fill-available;
   height: fill-available;
+  margin: 0;
+  padding: 0;
 }
 
 body {
