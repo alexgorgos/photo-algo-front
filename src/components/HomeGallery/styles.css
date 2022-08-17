@@ -20,13 +20,12 @@
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  height: 100%;
   position: relative;
+  height: auto;
 }
 
 .swiper-slide > div {
   width: 100%;
-  position: unset;
 }
 
 .swiper-slide img {
