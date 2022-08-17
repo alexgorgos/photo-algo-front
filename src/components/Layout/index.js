@@ -23,6 +23,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import "./global.css";
 
 export const Layout = ({ children }) => {
   const [openDrawer, setOpenDrawer] = React.useState(false);
@@ -63,7 +64,13 @@ export const Layout = ({ children }) => {
   return (
     <ThemeProvider theme={responsiveFontSizes(theme)}>
       <CssBaseline />
-      <Box sx={{ display: "flex", height: "100vh", position: "relative" }}>
+      <Box
+        sx={{
+          display: "flex",
+          height: "100vh",
+          position: "relative",
+        }}
+      >
         <AppBar
           position="fixed"
           color="transparent"
@@ -110,7 +117,7 @@ export const Layout = ({ children }) => {
             justifyContent="top"
             alignItems="stretch"
             spacing={5}
-            mt={{ xs: "48px", md: "64px" }}
+            pt={{ xs: "48px", md: "64px" }}
             flex={1}
           >
             <Header
@@ -125,7 +132,11 @@ export const Layout = ({ children }) => {
         <Main
           open={openDrawer}
           theme={theme}
-          sx={{ height: "100vh", width: "100%", paddingY: "64px" }}
+          sx={{
+            paddingY: { xs: "24px", md: "64px" },
+            height: "100%",
+            width: "100%",
+          }}
         >
           {children}
         </Main>

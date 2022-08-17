@@ -25,7 +25,7 @@ const modal = {
 };
 
 export const HomeGallery = ({ gallery }) => {
-  const [helper, setHelper] = React.useState(null);
+  const [helper, setHelper] = React.useState();
 
   const isMobile = React.useRef(
     (() => {
@@ -45,6 +45,8 @@ export const HomeGallery = ({ gallery }) => {
     })()
   );
 
+  let timer;
+
   React.useEffect(() => {
     const swiper = new Swiper(".swiper", {
       modules: [Keyboard, Mousewheel],
@@ -61,25 +63,22 @@ export const HomeGallery = ({ gallery }) => {
       },
     });
 
-    swiper.on(
-      "afterInit",
-      setTimeout(() => {
-        helper == null && setHelper(true);
-      }, 10 * 1000)
-    );
-
-    swiper.on("slideChange", () => {
-      helper && setHelper(false);
-    });
+    timer = setTimeout(() => {
+      setHelper(true);
+    }, 10 * 1000);
 
     swiper.on("activeIndexChange", () => {
-      helper && setHelper(false);
+      setHelper(false);
     });
 
-    swiper.on("touchMove", () => {
-      helper && setHelper(false);
+    swiper.on("slideChange", () => {
+      setHelper(false);
     });
   }, []);
+
+  React.useEffect(() => {
+    return timer && (() => clearTimeout(timer));
+  }, [helper]);
 
   return (
     <Box className="swiper">
@@ -88,7 +87,7 @@ export const HomeGallery = ({ gallery }) => {
           {isMobile.current ? (
             <>
               <Box className="wiggle">
-                <KeyboardArrowLeftIcon sx={{ fontSize: 60 }} />
+                <KeyboardArrowLeftIcon sx={{ fontSize: 30 }} />
                 <SwipeIcon sx={{ fontSize: 60 }} />
                 <KeyboardArrowRightIcon sx={{ fontSize: 60 }} />
               </Box>
