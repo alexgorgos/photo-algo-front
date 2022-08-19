@@ -88,23 +88,31 @@ export const HomeGallery = ({ gallery }) => {
             <>
               <Box className="wiggle">
                 <KeyboardArrowLeftIcon sx={{ fontSize: 30 }} />
-                <SwipeIcon sx={{ fontSize: 60 }} />
-                <KeyboardArrowRightIcon sx={{ fontSize: 60 }} />
+                <SwipeIcon sx={{ fontSize: 40 }} />
+                <KeyboardArrowRightIcon sx={{ fontSize: 30 }} />
               </Box>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography
+                variant="subtitle2"
+                id="modal-modal-description"
+                sx={{ mt: 1 }}
+              >
                 Swipe
               </Typography>
             </>
           ) : (
             <>
               <Box className="wiggle">
-                <KeyboardArrowLeftIcon sx={{ fontSize: 60 }} />
-                <KeyboardIcon sx={{ fontSize: 60 }} />
-                <MouseIcon sx={{ fontSize: 60 }} />
-                <PanToolIcon sx={{ fontSize: 60 }} />
-                <KeyboardArrowRightIcon sx={{ fontSize: 60 }} />
+                <KeyboardArrowLeftIcon sx={{ fontSize: 50 }} />
+                <KeyboardIcon sx={{ fontSize: 70 }} />
+                <MouseIcon sx={{ fontSize: 70 }} />
+                <PanToolIcon sx={{ fontSize: 70 }} />
+                <KeyboardArrowRightIcon sx={{ fontSize: 50 }} />
               </Box>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography
+                id="modal-modal-description"
+                variant="subtitle2"
+                sx={{ mt: 2 }}
+              >
                 Use keyboard, mousewheel or hold left-click to scroll
               </Typography>
             </>

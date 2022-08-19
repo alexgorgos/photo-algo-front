@@ -10,7 +10,7 @@ const {
 const strapiConfig = {
   apiURL: process.env.STRAPI_API_URL,
   accessToken: process.env.STRAPI_TOKEN,
-  collectionTypes: ["photo", "category"],
+  collectionTypes: ["photo", "gallery"],
   singleTypes: ["bio", "config"],
 };
 
@@ -58,7 +58,7 @@ module.exports = {
           formats: [`webp`],
           placeholder: `dominantColor`,
           quality: 90,
-          breakpoints: [750, 1080, 1366, 1920],
+          breakpoints: [600, 900, 1200, 1536],
           backgroundColor: `transparent`,
           tracedSVGOptions: {},
           blurredOptions: {},
