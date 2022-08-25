@@ -22,7 +22,6 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36,6 +35,7 @@ const Contact = () => {
         console.log(err);
         handleOpenSnack("error", "Oups! Something went wrong");
       });
+    e.preventDefault();
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -60,8 +60,10 @@ const Contact = () => {
         name="photo-contact"
         method="POST"
         data-netlify="true"
+        netlify
         onSubmit={handleSubmit}
       >
+        <input type="hidden" name="photo-contact" value="photo-contact" />
         <Stack>
           <TextField
             id="filled-basic"
