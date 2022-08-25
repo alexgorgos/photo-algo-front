@@ -8,7 +8,6 @@ import {
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ColorModeContext } from "../ThemeHandler";
-import Grid from "@mui/material/Unstable_Grid2";
 import {
   Box,
   Toolbar,
@@ -33,6 +32,15 @@ export const Layout = ({ children }) => {
   const theme = React.useMemo(
     () =>
       createTheme({
+        typography: {
+          fontFamily: "Poppins, sans-serif",
+          h1: {
+            fontFamily: "Sorts Mill Goudy, serif",
+          },
+          h3: {
+            fontFamily: "Sorts Mill Goudy, serif",
+          },
+        },
         palette: {
           mode: colorMode,
         },

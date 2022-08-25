@@ -110,6 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const homepageTemplate = path.resolve(`src/templates/homepage.js`);
   const galleryTemplate = path.resolve(`src/templates/gallery.js`);
   const photoTemplate = path.resolve(`src/templates/photo.js`);
+  const contactTemplate = path.resolve(`src/templates/contact.js`);
 
   //pages
 
@@ -121,8 +122,17 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   });
 
+  await createPage({
+    path: `/contact`,
+    component: contactTemplate,
+  });
+
   await Promise.all(
     allGalleries.nodes.map(async (node) => {
+      await node.photos.forEach((photo) => {
+        photo.slug = `/photo/${slugify(photo.title)}`;
+      });
+
       createPage({
         path: `/gallery/${slugify(node.name)}`,
         component: galleryTemplate,

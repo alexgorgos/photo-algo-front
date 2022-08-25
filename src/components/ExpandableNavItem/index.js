@@ -18,7 +18,7 @@ export const ExpandableNavItem = ({ title, childrens }) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List disablePadding>
+        <List disablePadding sx={{ paddingLeft: "18px" }}>
           {childrens.map((child, index) => {
             return (
               <RecursiveComp

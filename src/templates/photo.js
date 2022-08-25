@@ -24,7 +24,13 @@ const Photo = ({ pageContext }) => {
             imgStyle={{ objectFit: "contain" }}
             objectFit="contain"
           />
-          <Typography variant="h2" component="h2" textAlign={"left"}>
+          <Typography
+            variant="h2"
+            component="h2"
+            textAlign={"left"}
+            marginTop={3}
+            marginBottom={5}
+          >
             {photo.title}
           </Typography>
         </Box>

@@ -50,7 +50,7 @@ export const Navigation = ({ navName }) => {
   });
 
   return (
-    <List component="nav">
+    <List component="nav" sx={{ marginTop: "30px" }}>
       {menus[navName].map((item, index) => {
         return (
           <RecursiveComp

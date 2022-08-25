@@ -1,13 +1,10 @@
 import { createTheme } from "@mui/material";
+import "@fontsource/poppins";
 
 const theme = createTheme({
   typography: {
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
+      "Poppins",
       "Arial",
       "sans-serif",
       '"Apple Color Emoji"',
