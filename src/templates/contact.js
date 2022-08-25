@@ -4,9 +4,11 @@ import { TextField, Button, Snackbar, MuiAlert } from "@mui/material";
 import { Stack } from "@mui/system";
 
 const Contact = () => {
-  const [name, setName] = React.useState();
-  const [email, setEmail] = React.useState();
-  const [message, setMessage] = React.useState();
+  const [data, setData] = React.useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [openSnack, setOpenSnack] = React.useState({
     value: false,
     severity: "info",
@@ -27,15 +29,16 @@ const Contact = () => {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        "form-name": e.target.getAttribute("name"),
-        ...{ name: name, email: email, message: message },
+        "form-name": "photo-contact",
+        ...data,
       }),
     })
-      .then(() => handleOpenSnack("success", "Thank you! Message sent"))
+      .then((res) => handleOpenSnack("success", "Thank you! Message sent"))
       .catch((err) => {
         console.log(err);
         handleOpenSnack("error", "Oups! Something went wrong");
       });
+    e.preventDefault();
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -48,6 +51,10 @@ const Contact = () => {
     }
 
     setOpenSnack({ value: false, severity: "info", message: "" });
+  };
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -69,18 +76,18 @@ const Contact = () => {
             label="Your name:"
             name="name"
             variant="filled"
-            value={name}
+            value={data.name}
             type="text"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setData(handleChange(e))}
           />
           <TextField
             id="filled-basic"
             label="Your email:"
             name="email"
             variant="filled"
-            value={email}
+            value={data.email}
             type="email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setData(handleChange(e))}
           />
           <TextField
             id="filled-multiline-static"
@@ -89,9 +96,9 @@ const Contact = () => {
             multiline
             rows={4}
             variant="filled"
-            value={message}
+            value={data.message}
             type="text"
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => setData(handleChange(e))}
           />
           <Button type="submit">Send</Button>
         </Stack>
