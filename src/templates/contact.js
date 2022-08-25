@@ -25,6 +25,12 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      encode({
+        "form-name": "photo-contact",
+        ...data,
+      })
+    );
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
