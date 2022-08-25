@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Layout } from "../components/Layout";
-import { TextField, Button, Snackbar, MuiAlert } from "@mui/material";
+import { TextField, Button, Snackbar, Alert } from "@mui/material";
 import { Stack } from "@mui/system";
 
 const Contact = () => {
@@ -9,6 +9,7 @@ const Contact = () => {
     email: "",
     message: "",
   });
+
   const [openSnack, setOpenSnack] = React.useState({
     value: false,
     severity: "info",
@@ -39,12 +40,18 @@ const Contact = () => {
         ...data,
       }),
     })
-      .then((res) => handleOpenSnack("success", "Thank you! Message sent"))
+      .then((res) => {
+        handleOpenSnack("success", "Thank you! Message sent");
+        setData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      })
       .catch((err) => {
         console.log(err);
         handleOpenSnack("error", "Oups! Something went wrong");
       });
-    e.preventDefault();
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -63,10 +70,6 @@ const Contact = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
   return (
     <Layout>
       <form
@@ -84,7 +87,7 @@ const Contact = () => {
             variant="filled"
             value={data.name}
             type="text"
-            onChange={(e) => setData(handleChange(e))}
+            onChange={(e) => handleChange(e)}
           />
           <TextField
             id="filled-basic"
@@ -93,7 +96,7 @@ const Contact = () => {
             variant="filled"
             value={data.email}
             type="email"
-            onChange={(e) => setData(handleChange(e))}
+            onChange={(e) => handleChange(e)}
           />
           <TextField
             id="filled-multiline-static"
@@ -104,7 +107,7 @@ const Contact = () => {
             variant="filled"
             value={data.message}
             type="text"
-            onChange={(e) => setData(handleChange(e))}
+            onChange={(e) => handleChange(e)}
           />
           <Button type="submit">Send</Button>
         </Stack>
