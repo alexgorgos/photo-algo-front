@@ -22,6 +22,7 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35,7 +36,6 @@ const Contact = () => {
         console.log(err);
         handleOpenSnack("error", "Oups! Something went wrong");
       });
-    e.preventDefault();
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -57,13 +57,12 @@ const Contact = () => {
   return (
     <Layout>
       <form
-        name="photo-contact"
+        name="Photo Contact Form"
         method="POST"
         data-netlify="true"
-        netlify
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
       >
-        <input type="hidden" name="photo-contact" value="photo-contact" />
+        <input type="hidden" name="photo-contact" value="Photo Contact Form" />
         <Stack>
           <TextField
             id="filled-basic"
@@ -71,6 +70,7 @@ const Contact = () => {
             name="name"
             variant="filled"
             value={name}
+            type="text"
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -79,6 +79,7 @@ const Contact = () => {
             name="email"
             variant="filled"
             value={email}
+            type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
@@ -89,6 +90,7 @@ const Contact = () => {
             rows={4}
             variant="filled"
             value={message}
+            type="text"
             onChange={(e) => setMessage(e.target.value)}
           />
           <Button type="submit">Send</Button>
