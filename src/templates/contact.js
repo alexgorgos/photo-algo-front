@@ -1,9 +1,21 @@
 import * as React from "react";
 import { Layout } from "../components/Layout";
-import { TextField, Button, Snackbar, Alert } from "@mui/material";
-import { Stack } from "@mui/system";
+import {
+  TextField,
+  Button,
+  Snackbar,
+  Alert,
+  Stack,
+  Typography,
+  Grid,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import SendIcon from "@mui/icons-material/Send";
+import { ColorModeContext } from "../components/ThemeHandler";
 
 const Contact = () => {
+  const theme = useTheme();
+  const { colorMode } = React.useContext(ColorModeContext);
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -25,18 +37,11 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(
-      encode({
-        "form-name": "photo-contact",
-        ...data,
-      })
-    );
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        "form-name": "photo-contact",
+        "form-name": e.target.getAttribute("name"),
         ...data,
       }),
     })
@@ -52,6 +57,7 @@ const Contact = () => {
         console.log(err);
         handleOpenSnack("error", "Oups! Something went wrong");
       });
+    e.preventDefault();
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -74,12 +80,37 @@ const Contact = () => {
     <Layout>
       <form
         name="Photo Contact Form"
-        method="POST"
+        method="post"
         data-netlify="true"
+        data-netlify-honeypot="bot-field"
         onSubmit={(e) => handleSubmit(e)}
       >
         <input type="hidden" name="photo-contact" value="Photo Contact Form" />
-        <Stack>
+        <Stack spacing={3} width="50%">
+          <Typography
+            variant="h2"
+            component="h2"
+            textAlign={"left"}
+            marginTop={3}
+            marginBottom={5}
+          >
+            Get in touch
+          </Typography>
+          <Typography
+            variant="body1"
+            component="p"
+            textAlign={"left"}
+            marginTop={3}
+            marginBottom={5}
+          >
+            Please fill out the form bellow
+          </Typography>
+          <p hidden>
+            <label>
+              Don’t fill this out:{" "}
+              <input name="bot-field" onChange={(e) => handleChange(e)} />
+            </label>
+          </p>
           <TextField
             id="filled-basic"
             label="Your name:"
@@ -109,7 +140,25 @@ const Contact = () => {
             type="text"
             onChange={(e) => handleChange(e)}
           />
-          <Button type="submit">Send</Button>
+          <Button
+            variant="text"
+            type="submit"
+            endIcon={<SendIcon />}
+            disableRipple
+            disableElevation
+            size="medium"
+            sx={{
+              color: colorMode === "dark" ? "white" : "black",
+              "&:hover": {
+                backgroundColor:
+                  colorMode === "dark"
+                    ? "rgba(255,255,255,0.1)"
+                    : "rgba(0,0,0,0.1)",
+              },
+            }}
+          >
+            Send
+          </Button>
         </Stack>
       </form>
 
