@@ -1,0 +1,13 @@
+html,
+body {
+  height: 100%;
+}
+
+body,
+#___gatsby,
+#___gatsby > div,
+#___gatsby > div > div {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
