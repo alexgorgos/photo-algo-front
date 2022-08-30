@@ -79,13 +79,13 @@ const Contact = () => {
   return (
     <Layout>
       <form
-        name="Photo Contact Form"
+        name="photoContactForm"
         method="post"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <input type="hidden" name="photo-contact" value="Photo Contact Form" />
+        <input type="hidden" name="photo-contact" value="photoContactForm" />
         <Stack spacing={3} width="50%">
           <Typography
             variant="h2"
