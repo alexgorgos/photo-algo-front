@@ -110,7 +110,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const homepageTemplate = path.resolve(`src/templates/homepage.js`);
   const galleryTemplate = path.resolve(`src/templates/gallery.js`);
   const photoTemplate = path.resolve(`src/templates/photo.js`);
-  const contactTemplate = path.resolve(`src/templates/contact.js`);
 
   //pages
 
@@ -120,11 +119,6 @@ exports.createPages = async ({ graphql, actions }) => {
     context: {
       gallery: homepageGallery,
     },
-  });
-
-  await createPage({
-    path: `/contact`,
-    component: contactTemplate,
   });
 
   await Promise.all(
