@@ -7,14 +7,15 @@ import {
   Alert,
   Stack,
   Typography,
-  Grid,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SendIcon from "@mui/icons-material/Send";
 import { ColorModeContext } from "../components/ThemeHandler";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const Contact = () => {
   const theme = useTheme();
+  const { executeReCaptcha } = useGoogleReCaptcha();
   const { colorMode } = React.useContext(ColorModeContext);
   const [data, setData] = React.useState({
     name: "",
@@ -28,6 +29,8 @@ const Contact = () => {
     message: "",
   });
 
+  const [token, setToken] = React.useState("");
+
   const encode = (data) => {
     return Object.keys(data)
       .map(
@@ -36,28 +39,59 @@ const Contact = () => {
       .join("&");
   };
 
-  const handleSubmit = (e) => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": e.target.getAttribute("name"),
-        ...data,
-      }),
-    })
-      .then((res) => {
-        handleOpenSnack("success", "Thank you! Message sent");
-        setData({
-          name: "",
-          email: "",
-          message: "",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleOpenSnack("error", "Oups! Something went wrong");
-      });
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!executeReCaptcha) {
+      return;
+    }
+
+    if (!data.name) {
+      handleOpenSnack("error", "Please don't leave the 'Name' field empty.");
+    }
+
+    if (!data.email) {
+      handleOpenSnack("error", "Please don't leave the 'Email' field empty.");
+    }
+
+    if (!data.message) {
+      handleOpenSnack("error", "Please don't leave the 'Message' field empty.");
+    }
+
+    if (data.name || data.message || data.email) {
+      const tokenRes = await executeReCaptcha("contactPage");
+      setToken(tokenRes);
+
+      const formData = {
+        token: token,
+        formData: {
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        },
+      };
+
+      fetch("/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((res) => {
+          handleOpenSnack("success", "Thank you! Message sent");
+          setData({
+            name: "",
+            email: "",
+            message: "",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          handleOpenSnack("error", "Oups! Something went wrong");
+        });
+    }
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -81,11 +115,9 @@ const Contact = () => {
       <form
         name="photoContactForm"
         method="post"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         onSubmit={(e) => handleSubmit(e)}
+        action="https://photo-algo.herokuapp.com/api/exforms/submit"
       >
-        <input type="hidden" name="photo-contact" value="photoContactForm" />
         <Stack spacing={3} width="50%">
           <Typography
             variant="h2"
@@ -105,12 +137,6 @@ const Contact = () => {
           >
             Please fill out the form bellow
           </Typography>
-          <p hidden>
-            <label>
-              Don’t fill this out:{" "}
-              <input name="bot-field" onChange={(e) => handleChange(e)} />
-            </label>
-          </p>
           <TextField
             id="filled-basic"
             label="Your name:"
