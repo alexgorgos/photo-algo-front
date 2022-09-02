@@ -17,6 +17,7 @@ const Contact = () => {
   const theme = useTheme();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const { colorMode } = React.useContext(ColorModeContext);
+  const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -54,6 +55,8 @@ const Contact = () => {
     }
 
     if (forSending) {
+      setLoading(true);
+
       fetch("https://photo-algo.herokuapp.com/api/messages", {
         method: "POST",
         headers: {
@@ -66,16 +69,23 @@ const Contact = () => {
         }),
       })
         .then((res) => {
-          setData({
-            name: "",
-            email: "",
-            message: "",
-          });
-          handleOpenSnack("success", "Thank you! Message sent");
+          if (res.status == 200) {
+            handleOpenSnack("success", "Thank you! Message sent");
+            setData({
+              name: "",
+              email: "",
+              message: "",
+            });
+            setLoading(false);
+          } else {
+            handleOpenSnack("error", "Oups! Something went wrong! Try again?");
+            setLoading(false);
+          }
         })
         .catch((err) => {
           console.log(err);
-          handleOpenSnack("error", "Oups! Something went wrong");
+          handleOpenSnack("error", "Oups! Something went wrong! Try again?");
+          setLoading(false);
         });
     }
   };
@@ -102,6 +112,7 @@ const Contact = () => {
         name="photoContactForm"
         method="post"
         onSubmit={(e) => handleSubmit(e)}
+        style={{ cursor: loading && "wait" }}
       >
         <Stack spacing={3} width="50%">
           <Typography
@@ -125,7 +136,9 @@ const Contact = () => {
           <TextField
             id="filled-basic"
             label="Your name:"
+            required
             name="name"
+            disabled={loading}
             variant="filled"
             value={data.name}
             type="text"
@@ -134,7 +147,9 @@ const Contact = () => {
           <TextField
             id="filled-basic"
             label="Your email:"
+            required
             name="email"
+            disabled={loading}
             variant="filled"
             value={data.email}
             type="email"
@@ -143,7 +158,9 @@ const Contact = () => {
           <TextField
             id="filled-multiline-static"
             label="Your message:"
+            required
             name="message"
+            disabled={loading}
             multiline
             rows={4}
             variant="filled"
@@ -157,6 +174,7 @@ const Contact = () => {
             endIcon={<SendIcon />}
             disableRipple
             disableElevation
+            disabled={loading}
             size="medium"
             sx={{
               color: colorMode === "dark" ? "white" : "black",
