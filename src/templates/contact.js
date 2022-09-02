@@ -29,9 +29,7 @@ const Contact = () => {
     message: "",
   });
 
-  const [token, setToken] = React.useState("");
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let forSending = true;
@@ -56,25 +54,16 @@ const Contact = () => {
     }
 
     if (forSending) {
-      const tokenRes = executeRecaptcha("contactPage");
-      setToken(tokenRes);
-
-      const formData = {
-        data: {
-          name: data.name,
-          email: data.email,
-          message: data.message,
-        },
-        token: token,
-      };
-
       fetch("https://photo-algo.herokuapp.com/api/messages", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-type": "application/json;charset=UTF-8",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          data: data,
+          token: await executeRecaptcha("homepage"),
+        }),
       })
         .then((res) => {
           setData({
