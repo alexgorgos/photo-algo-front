@@ -15,7 +15,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const Contact = () => {
   const theme = useTheme();
-  const { executeReCaptcha } = useGoogleReCaptcha();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const { colorMode } = React.useContext(ColorModeContext);
   const [data, setData] = React.useState({
     name: "",
@@ -31,61 +31,58 @@ const Contact = () => {
 
   const [token, setToken] = React.useState("");
 
-  const encode = (data) => {
-    return Object.keys(data)
-      .map(
-        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-      )
-      .join("&");
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!executeReCaptcha) {
+    let forSending = true;
+
+    if (!executeRecaptcha) {
       return;
     }
 
-    if (!data.name) {
+    if (!data.name || data.name.length < 1) {
       handleOpenSnack("error", "Please don't leave the 'Name' field empty.");
+      forSending = false;
     }
 
-    if (!data.email) {
+    if (!data.email || data.email.length < 1) {
       handleOpenSnack("error", "Please don't leave the 'Email' field empty.");
+      forSending = false;
     }
 
-    if (!data.message) {
+    if (!data.message || data.message.length < 1) {
       handleOpenSnack("error", "Please don't leave the 'Message' field empty.");
+      forSending = false;
     }
 
-    if (data.name || data.message || data.email) {
-      const tokenRes = await executeReCaptcha("contactPage");
+    if (forSending) {
+      const tokenRes = executeRecaptcha("contactPage");
       setToken(tokenRes);
 
       const formData = {
-        token: token,
-        formData: {
+        data: {
           name: data.name,
           email: data.email,
           message: data.message,
         },
+        token: token,
       };
 
-      fetch("/", {
+      fetch("https://photo-algo.herokuapp.com/api/messages", {
         method: "POST",
         headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-type": "application/json",
+          Accept: "application/json",
+          "Content-type": "application/json;charset=UTF-8",
         },
         body: JSON.stringify(formData),
       })
         .then((res) => {
-          handleOpenSnack("success", "Thank you! Message sent");
           setData({
             name: "",
             email: "",
             message: "",
           });
+          handleOpenSnack("success", "Thank you! Message sent");
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +113,6 @@ const Contact = () => {
         name="photoContactForm"
         method="post"
         onSubmit={(e) => handleSubmit(e)}
-        action="https://photo-algo.herokuapp.com/api/exforms/submit"
       >
         <Stack spacing={3} width="50%">
           <Typography
