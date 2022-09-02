@@ -7,15 +7,17 @@ import {
   Alert,
   Stack,
   Typography,
-  Grid,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SendIcon from "@mui/icons-material/Send";
 import { ColorModeContext } from "../components/ThemeHandler";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 const Contact = () => {
   const theme = useTheme();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const { colorMode } = React.useContext(ColorModeContext);
+  const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -28,36 +30,64 @@ const Contact = () => {
     message: "",
   });
 
-  const encode = (data) => {
-    return Object.keys(data)
-      .map(
-        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-      )
-      .join("&");
-  };
-
-  const handleSubmit = (e) => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": e.target.getAttribute("name"),
-        ...data,
-      }),
-    })
-      .then((res) => {
-        handleOpenSnack("success", "Thank you! Message sent");
-        setData({
-          name: "",
-          email: "",
-          message: "",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        handleOpenSnack("error", "Oups! Something went wrong");
-      });
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let forSending = true;
+
+    if (!executeRecaptcha) {
+      return;
+    }
+
+    if (!data.name || data.name.length < 1) {
+      handleOpenSnack("error", "Please don't leave the 'Name' field empty.");
+      forSending = false;
+    }
+
+    if (!data.email || data.email.length < 1) {
+      handleOpenSnack("error", "Please don't leave the 'Email' field empty.");
+      forSending = false;
+    }
+
+    if (!data.message || data.message.length < 1) {
+      handleOpenSnack("error", "Please don't leave the 'Message' field empty.");
+      forSending = false;
+    }
+
+    if (forSending) {
+      setLoading(true);
+
+      fetch("https://photo-algo.herokuapp.com/api/messages", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json;charset=UTF-8",
+        },
+        body: JSON.stringify({
+          data: data,
+          token: await executeRecaptcha("homepage"),
+        }),
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            handleOpenSnack("success", "Thank you! Message sent");
+            setData({
+              name: "",
+              email: "",
+              message: "",
+            });
+            setLoading(false);
+          } else {
+            handleOpenSnack("error", "Oups! Something went wrong! Try again?");
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          handleOpenSnack("error", "Oups! Something went wrong! Try again?");
+          setLoading(false);
+        });
+    }
   };
 
   const handleOpenSnack = (severity, message) => {
@@ -81,11 +111,9 @@ const Contact = () => {
       <form
         name="photoContactForm"
         method="post"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         onSubmit={(e) => handleSubmit(e)}
+        style={{ cursor: loading && "wait" }}
       >
-        <input type="hidden" name="photo-contact" value="photoContactForm" />
         <Stack spacing={3} width="50%">
           <Typography
             variant="h2"
@@ -105,16 +133,12 @@ const Contact = () => {
           >
             Please fill out the form bellow
           </Typography>
-          <p hidden>
-            <label>
-              Don’t fill this out:{" "}
-              <input name="bot-field" onChange={(e) => handleChange(e)} />
-            </label>
-          </p>
           <TextField
             id="filled-basic"
             label="Your name:"
+            required
             name="name"
+            disabled={loading}
             variant="filled"
             value={data.name}
             type="text"
@@ -123,7 +147,9 @@ const Contact = () => {
           <TextField
             id="filled-basic"
             label="Your email:"
+            required
             name="email"
+            disabled={loading}
             variant="filled"
             value={data.email}
             type="email"
@@ -132,7 +158,9 @@ const Contact = () => {
           <TextField
             id="filled-multiline-static"
             label="Your message:"
+            required
             name="message"
+            disabled={loading}
             multiline
             rows={4}
             variant="filled"
@@ -146,6 +174,7 @@ const Contact = () => {
             endIcon={<SendIcon />}
             disableRipple
             disableElevation
+            disabled={loading}
             size="medium"
             sx={{
               color: colorMode === "dark" ? "white" : "black",
