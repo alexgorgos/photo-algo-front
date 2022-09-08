@@ -129,10 +129,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   await Promise.all(
     allGalleries.nodes.map(async (node) => {
-      await node.photos.forEach((photo) => {
-        photo.slug = `/photo/${slugify(photo.title)}`;
-      });
-
       createPage({
         path: `/gallery/${slugify(node.name)}`,
         component: galleryTemplate,

@@ -8,32 +8,31 @@ export const Navigation = ({ navName }) => {
   const { allStrapiMenus } = useStaticQuery(graphql`
     query menus {
       allStrapiMenus {
-        edges {
-          node {
-            id
-            attributes {
-              title
-              items {
-                data {
-                  id
-                  attributes {
-                    title
-                    url
-                    order
-                    target
-                    children {
-                      data {
-                        id
-                        attributes {
-                          title
-                          url
-                          order
-                          target
-                        }
+        nodes {
+          id
+          attributes {
+            title
+            slug
+            items {
+              data {
+                attributes {
+                  title
+                  order
+                  target
+                  url
+                  children {
+                    data {
+                      attributes {
+                        order
+                        target
+                        title
+                        url
                       }
+                      id
                     }
                   }
                 }
+                id
               }
             }
           }
@@ -44,9 +43,9 @@ export const Navigation = ({ navName }) => {
 
   const menus = {};
 
-  allStrapiMenus.edges.forEach((edge) => {
-    const key = edge.node.attributes.title;
-    menus[key] = edge.node.attributes.items.data;
+  allStrapiMenus.nodes.forEach((node) => {
+    const key = node.attributes.title;
+    menus[key] = node.attributes.items.data;
   });
 
   return (
