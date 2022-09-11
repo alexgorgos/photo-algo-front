@@ -6,6 +6,7 @@ import Link from "@mui/material/Link";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { slugify } from "../../utils/slugify";
 
 const Gallery = ({ pageContext }) => {
   const { gallery } = pageContext;
@@ -13,7 +14,7 @@ const Gallery = ({ pageContext }) => {
   const isBrowser = typeof window !== "undefined";
 
   const getColumns = (width) => {
-    return width < 600 ? 1 : 3;
+    return width < 780 ? 1 : 3;
   };
 
   const [cols, setCols] = React.useState(
@@ -40,7 +41,7 @@ const Gallery = ({ pageContext }) => {
             <ImageListItem
               key={i}
               component={Link}
-              href={node.slug}
+              href={`/photo/${slugify(node.title)}`}
               sx={{
                 position: "relative",
                 "&:hover": {

@@ -1,15 +1,13 @@
 import * as React from "react";
 import { Layout } from "../components/Layout";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
-const Photo = ({ pageContext }) => {
-  const { photo } = pageContext;
-  const html = photo.description.data.childrenMarkdownRemark[0].html;
-
-  console.log(photo);
+const About = ({ pageContext }) => {
+  const { content, photo } = pageContext;
+  const html = content.content.data.childrenMarkdownRemark[0].html;
 
   return (
     <Layout>
@@ -17,7 +15,7 @@ const Photo = ({ pageContext }) => {
         sx={{
           width: "100%",
           height: "100%",
-          textAlign: "center",
+          overflowY: "scroll",
         }}
       >
         <Grid container columnSpacing={5}>
@@ -29,21 +27,23 @@ const Photo = ({ pageContext }) => {
               marginTop={3}
               marginBottom={5}
             >
-              {photo.title}
+              About
             </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ display: "inline-block" }} mb={5}>
+              <GatsbyImage
+                image={getImage(photo.localFile)}
+                alt={photo.alternativeText}
+                imgStyle={{ objectFit: "contain" }}
+                objectFit="contain"
+                style={{ maxHeight: "70vh" }}
+                objectPosition="left"
+              />
+            </Box>
             <Box
               textAlign={"left"}
               dangerouslySetInnerHTML={{ __html: html }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <GatsbyImage
-              image={getImage(photo.photo.localFile)}
-              alt={photo.alternativeText}
-              imgStyle={{ objectFit: "contain" }}
-              objectFit="contain"
-              style={{ maxHeight: "90vh" }}
-              objectPosition="left"
             />
           </Grid>
         </Grid>
@@ -52,4 +52,4 @@ const Photo = ({ pageContext }) => {
   );
 };
 
-export default Photo;
+export default About;

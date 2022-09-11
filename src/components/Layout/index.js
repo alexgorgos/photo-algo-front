@@ -15,6 +15,7 @@ import {
   IconButton,
   Drawer,
   Typography,
+  Link,
 } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import { Header } from "../Header";
@@ -22,6 +23,8 @@ import { graphql, useStaticQuery } from "gatsby";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import "./global.css";
 
 export const Layout = ({ children }) => {
@@ -133,8 +136,43 @@ export const Layout = ({ children }) => {
               subtitle={allStrapiConfig.edges[0].node.subtitle}
             />
           </Stack>
+
           <Typography component="strong" variant="subtitle2" p={1}>
-            &copy; Alexandru Gorgos
+            &copy;
+            <Link
+              href="https://alexandrugorgos.com"
+              name="Alexandru Gorgos"
+              target="_blank"
+              sx={{
+                color: colorMode === "dark" ? "white" : "black",
+                marginRight: "10px",
+              }}
+            >
+              Alexandru Gorgos
+            </Link>{" "}
+            <Link
+              href="https://www.instagram.com/alexandrugorgosphotography/"
+              name="instagram"
+              target="_blank"
+              sx={{
+                color: colorMode === "dark" ? "white" : "black",
+                marginRight: "10px",
+                verticalAlign: "middle",
+              }}
+            >
+              <InstagramIcon fontSize="small" />
+            </Link>
+            <Link
+              href="https://twitter.com/alexandrugo_"
+              name="twitter"
+              target="_blank"
+              sx={{
+                color: colorMode === "dark" ? "white" : "black",
+                verticalAlign: "middle",
+              }}
+            >
+              <TwitterIcon fontSize="small" />
+            </Link>{" "}
           </Typography>
         </Drawer>
         <Main

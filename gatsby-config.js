@@ -39,7 +39,6 @@ module.exports = {
     },
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
-    "gatsby-plugin-mdx",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -88,9 +87,6 @@ module.exports = {
             policy: [{ userAgent: "*", disallow: ["/"] }],
             sitemap: null,
             host: null,
-          },
-          production: {
-            policy: [{ userAgent: "*", allow: "/" }],
           },
         },
       },
