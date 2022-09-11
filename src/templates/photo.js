@@ -7,6 +7,9 @@ import Typography from "@mui/material/Typography";
 
 const Photo = ({ pageContext }) => {
   const { photo } = pageContext;
+  const html = photo.description.data.childrenMarkdownRemark[0].html;
+
+  console.log(photo);
 
   return (
     <Layout>
@@ -14,7 +17,6 @@ const Photo = ({ pageContext }) => {
         sx={{
           width: "100%",
           height: "100%",
-          overflowY: "scroll",
           textAlign: "center",
         }}
       >
@@ -29,6 +31,10 @@ const Photo = ({ pageContext }) => {
             >
               {photo.title}
             </Typography>
+            <Box
+              textAlign={"left"}
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
             <GatsbyImage
@@ -36,6 +42,8 @@ const Photo = ({ pageContext }) => {
               alt={photo.alternativeText}
               imgStyle={{ objectFit: "contain" }}
               objectFit="contain"
+              style={{ maxHeight: "90vh" }}
+              objectPosition="left"
             />
           </Grid>
         </Grid>

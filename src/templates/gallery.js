@@ -14,7 +14,7 @@ const Gallery = ({ pageContext }) => {
   const isBrowser = typeof window !== "undefined";
 
   const getColumns = (width) => {
-    return width < 600 ? 1 : 3;
+    return width < 780 ? 1 : 3;
   };
 
   const [cols, setCols] = React.useState(

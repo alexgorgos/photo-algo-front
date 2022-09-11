@@ -105,12 +105,38 @@ exports.createPages = async ({ graphql, actions }) => {
     .then((res) => res.data.allStrapiPhoto)
     .catch((err) => console.error(err));
 
+  const allBio = await graphql(`
+    query about {
+      allStrapiBio {
+        nodes {
+          content {
+            data {
+              childrenMarkdownRemark {
+                html
+              }
+            }
+          }
+          images {
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+    .then((res) => res.data.allStrapiBio)
+    .catch((err) => console.error(err));
+
   //templates
 
   const homepageTemplate = path.resolve(`src/templates/homepage.js`);
   const galleryTemplate = path.resolve(`src/templates/gallery.js`);
   const photoTemplate = path.resolve(`src/templates/photo.js`);
   const contactTemplate = path.resolve(`src/templates/contact.js`);
+  const aboutTemplate = path.resolve(`src/templates/about.js`);
 
   //pages
 
@@ -125,6 +151,15 @@ exports.createPages = async ({ graphql, actions }) => {
   await createPage({
     path: `/contact`,
     component: contactTemplate,
+  });
+
+  await createPage({
+    path: `/about`,
+    component: aboutTemplate,
+    context: {
+      content: allBio.nodes[0],
+      photo: allBio.nodes[0].images[0],
+    },
   });
 
   await Promise.all(

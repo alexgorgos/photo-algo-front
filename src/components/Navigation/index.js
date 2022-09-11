@@ -76,6 +76,7 @@ export const RecursiveComp = (props) => {
       title={props.title}
       url={props.url}
       target={props.target}
+      name={props.title}
     />
   );
 };
