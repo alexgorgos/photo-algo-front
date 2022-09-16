@@ -83,7 +83,7 @@ export const HomeGallery = ({ gallery }) => {
   return (
     <Box className="swiper">
       <Modal open={helper != null && helper} onClose={() => setHelper(false)}>
-        <Box sx={modal}>
+        <Box sx={modal} onClick={() => setHelper(false)}>
           {isMobile.current ? (
             <>
               <Box className="wiggle">
